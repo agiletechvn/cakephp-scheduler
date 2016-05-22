@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/crabstudio/cakephp-scheduler.svg?branch=master)](https://travis-ci.org/crabstudio/cakephp-scheduler)
-CakePHP Scheduler Plugin
+# CakePHP 3: Scheduler Plugin
 ========================
 
 Makes scheduling tasks in CakePHP much simpler.
@@ -7,6 +7,10 @@ Makes scheduling tasks in CakePHP much simpler.
 Author
 ------
 Trent Richardson [http://trentrichardson.com]
+
+Contributor
+------
+Anh Tuan Nguyen [anhtuank7c@hotmail.com]
 
 License
 -------
@@ -21,36 +25,39 @@ SchedulerShell works by scheduling one cron (SchedulerShell) for your project. T
 
 Install
 -------
+You can install this plugin into your CakePHP application using [composer](http://getcomposer.org).
 
-This Shell was developed for CakePHP 3.
+The recommended way to install composer packages is:
 
-### Composer Installation (recommended)
+```
+composer require crabstudio/scheduler
+```
+Or add the following lines to your application's **composer.json**:
 
-In your project's composer.json file add this to your require:
+```
+"require": {
+    "crabstudio/scheduler": "^1.0"
+}
+```
+followed by the command:
 
-````
-"trentrichardson/cakephp-scheduler": "~3.0"
-````
-
-### Manual Installation
-
-Copy the Scheduler plugin into your App/Plugin folder and rename the folder to Scheduler.
-
-### Load the Plugin
-
-In your bootstrap.php file add either:
-
-```php
-Plugin::loadAll();
+```
+composer update
 ```
 
-or
+## Load plugin
+Open `terminal/command line` then enter following command:
 
-```php
-Plugin::load('Scheduler',['autoload'=>true]);
+```
+bin/cake plugin load Scheduler
 ```
 
-Schedule a single system cron by the shortest interval you need for SchedulerShell.php.  For example, if you have 5 tasks and the most often run is every 5 minutes, then schedule this cron to run at least every 5 minutes. For more help see [Shells as Cron Jobs](http://book.cakephp.org/2.0/en/console-and-shells/cron-jobs.html).
+Or add this line to **Your_project\config\bootstrap.php**
+```
+Plugin::load('Scheduler');
+```
+
+Schedule a single system cron by the shortest interval you need for SchedulerShell.php.  For example, if you have 5 tasks and the most often run is every 5 minutes, then schedule this cron to run at least every 5 minutes. For more help see [Shells as Cron Jobs](http://book.cakephp.org/3.0/en/console-and-shells/cron-jobs.html).
 
 Example cron job:
 
