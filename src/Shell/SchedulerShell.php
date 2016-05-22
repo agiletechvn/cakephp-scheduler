@@ -146,7 +146,6 @@ class SchedulerShell extends Shell
         $processingFlag = new File($dir->slashTerm($dir->pwd()) . '.scheduler_running_flag');
 
         if ($processing && (time() - $processingFlag->lastChange()) < $this->processingTimeout) {
-            $this->out("Scheduler already running! Exiting.");
             Log::info("Scheduler already running! Exiting.");
             return false;
         } else {
@@ -164,7 +163,7 @@ class SchedulerShell extends Shell
         if (file_exists($storeFilePath)) {
             $store = file_get_contents($storeFilePath);
         }
-        $this->out('Reading from: ' . $storeFilePath);
+        Log::info('Reading from: ' . $storeFilePath);
 
         // build or rebuild the store
         if ($store != '') {
@@ -205,22 +204,10 @@ class SchedulerShell extends Shell
 
             // is it time to run? has it never been run before?
             if ($tmptime <= $now) {
-                $this->hr();
-                $this->out("Running $name");
-                Log::info("Running $name");
-                $this->hr();
+                Log::info("Running {$job['task']}. [task_id: $name]");
 
                 if (!isset($this->$task)) {
-                        $this->$task = $this->Tasks->load($task);
-
-                        // load models if they aren't already
-                        // foreach ($this->$task->uses as $mk => $mv) {
-                        //         if (!isset($this->$task->$mv)) {
-                        //                 App::uses('AppModel', 'Model');
-                        //                 App::uses($mv, 'Model');
-                        //                 $this->$task->$mv = new $mv();
-                        //         }
-                        // }
+                    $this->$task = $this->Tasks->load($task);
                 }
 
                 // grab the entire schedule record incase it was updated..
@@ -233,10 +220,7 @@ class SchedulerShell extends Shell
                 $now = new DateTime();
                 $store[$name]['lastRun'] = $now->format('Y-m-d H:i:s');
             } else {
-                $this->hr();
-                $this->out("Not time to run $name, skipping.");
-                Log::info("Not time to run $name, skipping.");
-                $this->hr();
+                Log::info("Not time to run {$job['task']}, skipping. [task_id: $name]");
             }
         }
 
