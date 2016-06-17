@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/crabstudio/cakephp-scheduler.svg?branch=master)](https://travis-ci.org/crabstudio/cakephp-scheduler)
+[![Build Status](https://travis-ci.org/crabstudio/cakephp-scheduler.svg?branch=master)](https://travis-ci.org/crabstudio/cakephp-scheduler) [![Latest Stable Version](https://poser.pugx.org/crabstudio/scheduler/v/stable)](https://packagist.org/packages/crabstudio/scheduler) [![Total Downloads](https://poser.pugx.org/crabstudio/scheduler/downloads)](https://packagist.org/packages/crabstudio/scheduler) [![Latest Unstable Version](https://poser.pugx.org/crabstudio/scheduler/v/unstable)](https://packagist.org/packages/crabstudio/scheduler) [![License](https://poser.pugx.org/crabstudio/scheduler/license)](https://packagist.org/packages/crabstudio/scheduler)
+
 # CakePHP 3: Scheduler Plugin
 ========================
 
@@ -71,10 +72,30 @@ Now once this shell is scheduled we are able to add our entries to bootstrap.php
 
 ```php
 Configure::write('SchedulerShell.jobs', array(
-	'CleanUp' => array('interval' => 'next day 5:00', 'task' => 'CleanUp'),// tomorrow at 5am
-	'Newsletters' => array('interval' => 'PT15M', 'task' => 'Newsletter') //every 15 minutes
+	'task_01' => array('interval' => 'next day 5:00', 'task' => 'EmailQueue'),// tomorrow at 5am
+	'task_02' => array('interval' => 'PT15M', 'task' => 'Newsletter') //every 15 minutes
 ));
+
 ```
+
+## [DateInterval](http://www.php.net/manual/en/class.dateinterval.php)
+
+    `PT1S` task will run each 1 Second
+    `PT1M` task will run each 1 Minute
+    `PT1H` task will run each 1 Hour
+    `P1D` task will run each 1 Day
+    `P1W` task will run each 1 Week
+    `P1M` task will run each 1 Month
+    `P1Y` task will run each 1 Year
+## [datetime.formats.relative](http://php.net/manual/en/datetime.formats.relative.php)
+
+    `next day 05:00` task will on tomorrow at 05:00
+    `sunday 05:00` task will on sunday at 05:00
+    `weekday 05:00` task will on from Mon-Friday at 05:00
+    `saturday 05:00` task will on Saturday at 05:00
+    `sun 05:00` task will on Sun at 05:00
+    `sun 05:00 next month` task will on Sun at 05:00 in next month
+    `Monday next week 2020-01-01` task will on Monday in next week 2020-01-01
 
 The key to each entry will be used to store the previous run.  *These must be unique*!
 
